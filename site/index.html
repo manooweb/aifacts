@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI! FACTS – bientôt</title>
+<meta name="description" content="Les AI Facts : l'IA sait tout faire, il paraît. Comme Chuck Norris en son temps, elle méritait ses facts. Bientôt sur aifacts.fr.">
+<meta property="og:title" content="AI! FACTS">
+<meta property="og:description" content="L'IA sait tout faire, il paraît. Comme Chuck Norris en son temps, elle méritait ses facts. Un nouveau AI Fact chaque vendredi, 100 % véridique (ou presque).">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://aifacts.fr/assets/og-image.jpg">
+<meta property="og:url" content="https://aifacts.fr/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico?v=2" sizes="48x48">
+<link rel="icon" type="image/png" href="assets/favicon-32.png?v=2" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
+<style>
+  :root {
+    --bg: #0E0F14;
+    --ink: #F2F0EA;
+    --muted: #A9A6A0;
+    --amber: #F7A41D;
+    --rust: #B83A0A;
+    --shadow: #C2310E;
+    --dark: #1A1A1A;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, #1B1C24 0%, var(--bg) 60%);
+    color: var(--ink);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 32px 16px 48px;
+  }
+  main { width: 100%; max-width: 640px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+
+  .card { position: relative; width: 100%; aspect-ratio: 1; container-type: inline-size; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+  .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .fact {
+    position: absolute; left: 13.33%; top: 53.75%; width: 73.33%; height: 27.5%;
+    padding: 0 1.7cqw;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2.2cqw;
+    text-align: center; transform: rotate(-4deg);
+  }
+  .fact p { margin: 0; font-weight: 900; line-height: 1.1; letter-spacing: -.05cqw; text-wrap: balance; font-size: 4.6cqw; }
+  .fact .a { color: var(--dark); }
+  .fact .b { color: var(--rust); }
+  .tag {
+    position: absolute; right: 10.4%; top: 79.2%; margin: 0;
+    padding: .5cqw 1.8cqw; transform: rotate(-5deg);
+    background: var(--amber); color: var(--dark);
+    border: .42cqw solid var(--dark); box-shadow: .5cqw .5cqw 0 var(--shadow);
+    font-size: 3cqw; font-weight: 900; font-style: italic; text-transform: uppercase;
+  }
+
+  button {
+    font: inherit; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: .5px;
+    font-size: 18px; padding: 12px 28px; min-height: 48px; cursor: pointer;
+    background: var(--amber); color: var(--dark);
+    border: 4px solid var(--dark); box-shadow: 5px 5px 0 var(--shadow);
+    transform: rotate(-2deg); transition: transform .1s;
+  }
+  button:hover { transform: rotate(-2deg) translate(-1px, -1px); box-shadow: 6px 6px 0 var(--shadow); }
+  button:active { transform: rotate(-2deg) translate(3px, 3px); box-shadow: 2px 2px 0 var(--shadow); }
+  button:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+
+  .soon { text-align: center; display: flex; flex-direction: column; gap: 10px; }
+  .soon h1 { margin: 0; font-size: 22px; font-weight: 800; }
+  .soon p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+  code { font-family: ui-monospace, "JetBrains Mono", monospace; color: var(--amber); }
+  footer { margin-top: 40px; color: var(--muted); font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card" aria-live="polite">
+    <img src="assets/aifacts-robot.jpg" alt="AI! FACTS : un robot à lunettes de soleil et cape de super-héros, bras croisés, au-dessus d'un grand cadre">
+    <div class="fact">
+      <p class="a" id="a">Claude a remplacé une équipe de 10 développeurs.</p>
+      <p class="b" id="b">Il en a fallu 12 pour relire son code.</p>
+    </div>
+    <p class="tag" id="tag">Fact n°1</p>
+  </div>
+
+  <button type="button" id="more">Encore un fact !</button>
+
+  <section class="soon">
+    <h1>L'IA sait tout faire. Il paraît.</h1>
+    <p>Comme Chuck Norris en son temps, elle méritait ses facts.<br>
+      Un nouveau chaque vendredi sur LinkedIn.</p>
+    <p>Bientôt ici : proposez les vôtres, partagez-les, et une API <code>GET /facts/random</code>.</p>
+  </section>
+</main>
+<footer>aifacts.fr — 100 % véridique* · <span>*ou presque</span></footer>
+
+<script>
+  const facts = [
+    // Uniquement les facts déjà publiés sur LinkedIn
+    [1, "Claude a remplacé une équipe de 10 développeurs.", "Il en a fallu 12 pour relire son code."],
+  ];
+  if (facts.length < 2) document.getElementById('more').hidden = true;
+  let current = 0;
+  const show = (i) => {
+    const [n, a, b] = facts[i];
+    document.getElementById('a').textContent = a;
+    document.getElementById('b').textContent = b;
+    document.getElementById('tag').textContent = 'Fact n°' + n;
+    current = i;
+  };
+  show(Math.floor(Math.random() * facts.length));
+  document.getElementById('more').addEventListener('click', () => {
+    let next;
+    do { next = Math.floor(Math.random() * facts.length); } while (facts.length > 1 && next === current);
+    show(next);
+  });
+</script>
+</body>
+</html>

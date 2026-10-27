@@ -1,0 +1,6 @@
+# aifacts.fr : tout rediriger vers https://aifacts.fr (sans www) en une seule redirection 301
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^www\. [NC,OR]
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://aifacts.fr%{REQUEST_URI} [L,R=301]

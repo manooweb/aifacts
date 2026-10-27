@@ -1,0 +1,36 @@
+name: Nouveau fact
+description: Proposer un AI Fact (accroche + chute)
+title: "[Fact] "
+labels: ["nouveau-fact"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci ! Un bon AI Fact, c'est une accroche qui reprend le discours « l'IA sait tout faire », et une chute qui le retourne.
+        Exemple : *Claude a remplacé une équipe de 10 développeurs.* → *Il en a fallu 12 pour relire son code.*
+  - type: input
+    id: setup
+    attributes:
+      label: Accroche
+      placeholder: Claude a remplacé une équipe de 10 développeurs.
+    validations:
+      required: true
+  - type: input
+    id: punchline
+    attributes:
+      label: Chute
+      placeholder: Il en a fallu 12 pour relire son code.
+    validations:
+      required: true
+  - type: input
+    id: credit
+    attributes:
+      label: Crédit (facultatif)
+      description: Le nom ou pseudo à citer si le fact est publié. Par défaut, ton pseudo GitHub.
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Règles
+      options:
+        - label: Mon fact est original, ne vise aucune personne réelle et j'accepte sa publication sous licence CC BY 4.0.
+          required: true

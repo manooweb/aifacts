@@ -1,0 +1,13 @@
+# Liste blanche : seul le strict nécessaire est versionné.
+# Tout le reste (notes, brouillons, visuels de travail, scripts) reste en local.
+/*
+!/.gitignore
+!/.github/
+!/README.md
+!/CONTRIBUTING.md
+!/LICENSE
+!/facts/
+!/site/
+
+# Idées de facts pas encore publiées
+/facts/idees.json
