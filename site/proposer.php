@@ -6,6 +6,8 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex');
 
+require dirname(__DIR__) . '/bootstrap.php';
+
 function repondre(int $code, array $donnees): void
 {
     http_response_code($code);
@@ -13,15 +15,12 @@ function repondre(int $code, array $donnees): void
     exit;
 }
 
-// Réglages locaux (non versionnés) : adresse de notification, dossier des données, origines de test
-$config = is_file(__DIR__ . '/config.local.php') ? require __DIR__ . '/config.local.php' : [];
-$dossier = $config['dossier'] ?? dirname(__DIR__) . '/aifacts-data';
-$origines = array_merge(['https://aifacts.fr'], $config['origines'] ?? []);
+$dossier = env('DATA_DIR', dirname(__DIR__) . '/data');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     repondre(405, ['erreur' => 'Méthode non autorisée.']);
 }
-if (!in_array($_SERVER['HTTP_ORIGIN'] ?? '', $origines, true)) {
+if (($_SERVER['HTTP_ORIGIN'] ?? '') !== env('APP_URL')) {
     repondre(403, ['erreur' => 'Origine non autorisée.']);
 }
 
@@ -88,13 +87,13 @@ if (file_put_contents($dossier . '/propositions.jsonl', $ligne, FILE_APPEND | LO
     repondre(500, ['erreur' => 'Enregistrement impossible pour le moment.']);
 }
 
-if (!empty($config['email'])) {
+if (env('NOTIFY_EMAIL') !== null) {
     $corps = "Accroche : $setup\nChute : $punchline\nAuteur : " . ($author !== '' ? $author : '(anonyme)') . "\n";
     mail(
-        $config['email'],
+        env('NOTIFY_EMAIL'),
         mb_encode_mimeheader('[AI! FACTS] Nouvelle proposition', 'UTF-8'),
         $corps,
-        "From: AI! FACTS <no-reply@aifacts.fr>\r\nContent-Type: text/plain; charset=UTF-8"
+        'From: AI! FACTS <' . env('MAIL_FROM', 'no-reply@aifacts.fr') . ">\r\nContent-Type: text/plain; charset=UTF-8"
     );
 }
 

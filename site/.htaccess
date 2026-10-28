@@ -1,3 +1,6 @@
+# Pas de listing des dossiers
+Options -Indexes
+
 # aifacts.fr : tout rediriger vers https://aifacts.fr (sans www) en une seule redirection 301
 RewriteEngine On
 

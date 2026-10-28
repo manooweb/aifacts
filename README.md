@@ -16,6 +16,18 @@ Les Chuck Norris Facts sont devenus cultes grâce à leurs contributeurs. Ici, c
 
 Toutes les règles sont dans [CONTRIBUTING.md](CONTRIBUTING.md). Les meilleurs facts sont publiés le vendredi, avec le nom de leur auteur.
 
+## Lancer le site en local
+
+Il faut PHP 8.1 ou plus et Composer.
+
+```sh
+composer install
+cp .env.example .env
+composer serve        # http://localhost:8000
+```
+
+Les propositions envoyées par le formulaire arrivent dans `data/propositions.jsonl`.
+
 ## Licences
 
 - **Code** : [MIT](LICENSE)

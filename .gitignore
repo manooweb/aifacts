@@ -8,9 +8,10 @@
 !/LICENSE
 !/facts/
 !/site/
+!/composer.json
+!/composer.lock
+!/bootstrap.php
+!/.env.example
 
 # Idées de facts pas encore publiées
 /facts/idees.json
-
-# Réglages serveur (adresse de notification)
-/site/config.local.php
