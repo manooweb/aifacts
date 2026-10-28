@@ -89,12 +89,15 @@ if (file_put_contents($dossier . '/propositions.jsonl', $ligne, FILE_APPEND | LO
 
 if (env('NOTIFY_EMAIL') !== null) {
     $corps = "Accroche : $setup\nChute : $punchline\nAuteur : " . ($author !== '' ? $author : '(anonyme)') . "\n";
-    mail(
+    $envoye = mail(
         env('NOTIFY_EMAIL'),
         mb_encode_mimeheader('[AI! FACTS] Nouvelle proposition', 'UTF-8'),
         $corps,
         'From: AI! FACTS <' . env('MAIL_FROM', 'no-reply@aifacts.fr') . ">\r\nContent-Type: text/plain; charset=UTF-8"
     );
+    if (!$envoye) {
+        error_log('[AI! FACTS] Échec de l\'envoi de la notification à ' . env('NOTIFY_EMAIL'));
+    }
 }
 
 repondre(201, ['ok' => true]);

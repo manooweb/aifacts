@@ -10,6 +10,14 @@
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "php -S localhost:8000 -t site"
+        ],
+        "serve:mailpit": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -d sendmail_path=\"mailpit sendmail\" -S localhost:8000 -t site"
         ]
+    },
+    "scripts-descriptions": {
+        "serve": "Lance le site sur http://localhost:8000",
+        "serve:mailpit": "Idem, avec les e-mails envoyés à Mailpit (localhost:1025)"
     }
 }

@@ -26,7 +26,7 @@ cp .env.example .env
 composer serve        # http://localhost:8000
 ```
 
-Les propositions envoyées par le formulaire arrivent dans `data/propositions.jsonl`.
+Les propositions envoyées par le formulaire arrivent dans `data/propositions.jsonl`. Pour recevoir aussi la notification par e-mail, renseigne `NOTIFY_EMAIL` dans `.env` et lance `composer serve:mailpit` avec [Mailpit](https://mailpit.axllent.org/) démarré.
 
 ## Licences
 
