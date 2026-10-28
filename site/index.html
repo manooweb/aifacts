@@ -72,20 +72,41 @@
     font-size: 3cqw; font-weight: 900; font-style: italic; text-transform: uppercase;
   }
 
-  button, .cta {
+  button {
     font: inherit; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: .5px;
     font-size: 18px; padding: 12px 28px; min-height: 48px; cursor: pointer;
     background: var(--amber); color: var(--dark);
     border: 4px solid var(--dark); box-shadow: 5px 5px 0 var(--shadow);
     transform: rotate(-2deg); transition: transform .1s;
   }
-  button:hover, .cta:hover { transform: rotate(-2deg) translate(-1px, -1px); box-shadow: 6px 6px 0 var(--shadow); }
-  button:active, .cta:active { transform: rotate(-2deg) translate(3px, 3px); box-shadow: 2px 2px 0 var(--shadow); }
-  button:focus-visible, .cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
-  .cta { display: inline-flex; align-items: center; gap: 12px; align-self: center; text-decoration: none; margin: 10px 0 6px; }
-  .cta svg { width: 26px; height: 26px; flex: none; }
-  footer a { color: var(--muted); }
-  footer a:hover { color: var(--amber); }
+  button:hover { transform: rotate(-2deg) translate(-1px, -1px); box-shadow: 6px 6px 0 var(--shadow); }
+  button:active { transform: rotate(-2deg) translate(3px, 3px); box-shadow: 2px 2px 0 var(--shadow); }
+  button:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+  button:disabled { opacity: .6; cursor: wait; }
+  footer a, .soon a { color: var(--muted); }
+  footer a:hover, .soon a:hover { color: var(--amber); }
+
+  .propose { width: 100%; display: flex; flex-direction: column; gap: 16px; }
+  .propose h2 { margin: 0; text-align: center; font-size: 26px; font-weight: 900; font-style: italic; text-transform: uppercase; color: var(--amber); text-shadow: 3px 3px 0 var(--shadow); transform: rotate(-2deg); }
+  .propose label { display: flex; flex-direction: column; gap: 6px; font-weight: 800; font-size: 15px; }
+  .propose label span { color: var(--muted); font-weight: 400; font-size: 13px; }
+  .propose input[type=text] {
+    font: inherit; font-size: 16px; font-weight: 600; padding: 12px 14px; width: 100%;
+    background: #FFF8E7; color: var(--dark);
+    border: 3px solid var(--dark); box-shadow: 4px 4px 0 var(--shadow); border-radius: 0;
+  }
+  .propose input[type=text]::placeholder { color: #8C8478; font-weight: 400; }
+  .propose input[type=text]:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  .propose .regles { flex-direction: row; align-items: flex-start; gap: 10px; font-weight: 400; color: var(--muted); font-size: 14px; line-height: 1.4; }
+  .propose .regles input { width: 20px; height: 20px; margin: 0; flex: none; accent-color: var(--amber); }
+  .propose button { align-self: center; margin-top: 6px; }
+  .propose .piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .statut { margin: 0; min-height: 1.4em; text-align: center; font-weight: 800; }
+  .statut.ok { color: var(--amber); }
+  .statut.erreur { color: #FF8A65; }
+  .alt { margin: 0; text-align: center; color: var(--muted); font-size: 14px; }
+  .alt a { color: var(--muted); }
+  .alt a:hover { color: var(--amber); }
 
   .soon { text-align: center; display: flex; flex-direction: column; gap: 10px; }
   .soon h1 { margin: 0; font-size: 22px; font-weight: 800; }
@@ -111,11 +132,34 @@
     <h1>L'IA sait tout faire. Il paraît.</h1>
     <p>Comme Chuck Norris en son temps, elle méritait ses facts.<br>
       Un nouveau chaque vendredi sur LinkedIn.</p>
-    <a class="cta" href="https://github.com/manooweb/aifacts/issues/new?template=nouveau-fact.yml">
-      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-      Proposer mon fact
-    </a>
-    <p>Les meilleurs sont publiés le vendredi, avec le nom de leur auteur.</p>
+  </section>
+
+  <form class="propose" id="propose" action="proposer.php" method="post">
+    <h2>Propose ton fact</h2>
+    <label>Accroche
+      <input type="text" name="setup" id="setup" maxlength="160" required placeholder="Claude a remplacé une équipe de 10 développeurs.">
+    </label>
+    <label>Chute
+      <input type="text" name="punchline" id="punchline" maxlength="160" required placeholder="Il en a fallu 12 pour relire son code.">
+    </label>
+    <label>Ton nom ou pseudo <span>Facultatif, pour te créditer si ton fact est publié.</span>
+      <input type="text" name="author" maxlength="60" autocomplete="nickname">
+    </label>
+    <div class="piege" aria-hidden="true">
+      <label>Site web <input type="text" name="site_web" tabindex="-1" autocomplete="off"></label>
+    </div>
+    <input type="hidden" name="t" id="t">
+    <label class="regles">
+      <input type="checkbox" name="regles" value="oui" required>
+      Mon fact est original, ne vise aucune personne réelle et j'accepte sa publication sous licence CC BY 4.0.
+    </label>
+    <button type="submit">Envoyer mon fact</button>
+    <p class="statut" id="statut" role="status"></p>
+    <p class="alt">Les meilleurs sont publiés le vendredi, avec le nom de leur auteur.<br>
+      Tu préfères GitHub ? <a href="https://github.com/manooweb/aifacts/issues/new?template=nouveau-fact.yml">Ouvre une issue</a>.</p>
+  </form>
+
+  <section class="soon">
     <p>Bientôt ici : un fact au hasard, le partage, et une API <code>GET /facts/random</code>.</p>
   </section>
 </main>
@@ -140,6 +184,45 @@
     let next;
     do { next = Math.floor(Math.random() * facts.length); } while (facts.length > 1 && next === current);
     show(next);
+  });
+
+  // Formulaire : la carte affiche le fact proposé pendant la saisie
+  const form = document.getElementById('propose');
+  const setup = document.getElementById('setup');
+  const punchline = document.getElementById('punchline');
+  const statut = document.getElementById('statut');
+  document.getElementById('t').value = Math.floor(Date.now() / 1000);
+  const preview = () => {
+    if (!setup.value.trim() && !punchline.value.trim()) return show(current);
+    document.getElementById('a').textContent = setup.value.trim() || setup.placeholder;
+    document.getElementById('b').textContent = punchline.value.trim() || punchline.placeholder;
+    document.getElementById('tag').textContent = 'Ton fact';
+  };
+  setup.addEventListener('input', preview);
+  punchline.addEventListener('input', preview);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const button = form.querySelector('button');
+    button.disabled = true;
+    statut.className = 'statut';
+    statut.textContent = 'Envoi…';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.erreur || '');
+      statut.className = 'statut ok';
+      statut.textContent = 'Merci ! Ton fact est en lice pour un prochain vendredi.';
+      window._paq && _paq.push(['trackEvent', 'Fact', 'Proposition']);
+      form.reset();
+      document.getElementById('t').value = Math.floor(Date.now() / 1000);
+      show(current);
+    } catch (err) {
+      statut.className = 'statut erreur';
+      statut.textContent = err.message || 'Oups, l\'envoi a échoué. Réessaie dans un instant.';
+    } finally {
+      button.disabled = false;
+    }
   });
 </script>
 </body>

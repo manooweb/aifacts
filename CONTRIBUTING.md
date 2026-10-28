@@ -17,11 +17,15 @@ Quelques règles :
 - **Original** : pas de copie d'un fact existant, ni d'une blague trouvée ailleurs.
 - Les facts peuvent viser n'importe quelle IA (Claude, ChatGPT, Copilot, Gemini…).
 
-## Option 1 : sans Git
+## Option 1 : sur le site
+
+Remplis le formulaire sur [aifacts.fr](https://aifacts.fr) : accroche, chute et, si tu veux, le nom à citer.
+
+## Option 2 : par issue
 
 Ouvre une issue avec le modèle **[Nouveau fact](../../issues/new?template=nouveau-fact.yml)**. Il suffit de remplir deux champs.
 
-## Option 2 : par pull request
+## Option 3 : par pull request
 
 Ajoute ton fact **à la fin** de [`facts/facts.json`](facts/facts.json), sur une seule ligne, **sans `id`** (le numéro est attribué à la publication) :
 

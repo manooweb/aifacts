@@ -11,3 +11,6 @@
 
 # Idées de facts pas encore publiées
 /facts/idees.json
+
+# Réglages serveur (adresse de notification)
+/site/config.local.php

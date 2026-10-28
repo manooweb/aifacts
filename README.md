@@ -10,7 +10,8 @@
 
 Les Chuck Norris Facts sont devenus cultes grâce à leurs contributeurs. Ici, c'est pareil :
 
-- **Sans Git** : ouvre une [issue « Nouveau fact »](../../issues/new?template=nouveau-fact.yml).
+- **Le plus simple** : le formulaire sur [aifacts.fr](https://aifacts.fr).
+- **Sans quitter GitHub** : ouvre une [issue « Nouveau fact »](../../issues/new?template=nouveau-fact.yml).
 - **Avec Git** : ajoute ton fact dans [`facts/facts.json`](facts/facts.json) et ouvre une pull request.
 
 Toutes les règles sont dans [CONTRIBUTING.md](CONTRIBUTING.md). Les meilleurs facts sont publiés le vendredi, avec le nom de leur auteur.
