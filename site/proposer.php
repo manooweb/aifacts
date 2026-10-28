@@ -6,7 +6,7 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex');
 
-require dirname(__DIR__) . '/bootstrap.php';
+require_once dirname(__DIR__) . '/bootstrap.php';
 
 function repondre(int $code, array $donnees): void
 {
