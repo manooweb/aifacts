@@ -6,7 +6,7 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex');
 
-require_once dirname(__DIR__) . '/bootstrap.php';
+require_once dirname(__DIR__, 2) . '/bootstrap.php';
 
 function repondre(int $code, array $donnees): void
 {
@@ -15,7 +15,7 @@ function repondre(int $code, array $donnees): void
     exit;
 }
 
-$dossier = env('DATA_DIR', dirname(__DIR__) . '/data');
+$dossier = env('DATA_DIR', dirname(__DIR__, 2) . '/data');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     repondre(405, ['erreur' => 'Méthode non autorisée.']);
