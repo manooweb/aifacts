@@ -66,8 +66,10 @@ footer { margin-top: 40px; color: var(--muted); font-size: 13px; text-align: cen
 .intro p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; }
 
 /* Page de proposition */
-.banner { width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+main.large { max-width: 1100px; }
+.banner { width: 100%; max-width: 760px; height: auto; display: block; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
 .retour { align-self: flex-start; font-size: 14px; }
+.propose-layout { width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 18px; }
 .propose { width: 100%; display: flex; flex-direction: column; gap: 18px; }
 .propose .consigne { margin: 0; color: var(--muted); line-height: 1.5; text-align: center; }
 .champ { display: flex; flex-direction: column; gap: 6px; }
@@ -80,17 +82,44 @@ footer { margin-top: 40px; color: var(--muted); font-size: 13px; text-align: cen
 }
 .champ input[type=text]::placeholder { color: #8C8478; font-weight: 400; }
 .champ input[type=text]:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
-.champ input[aria-invalid=true] { border-color: var(--error); box-shadow: 4px 4px 0 var(--error); }
-.erreur-champ { margin: 0; color: var(--error); font-size: 14px; font-weight: 700; }
-.erreur-champ:empty { display: none; }
 .champ label.regles { font-weight: 400; }
 .regles { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 14px; line-height: 1.4; }
 .regles input { width: 20px; height: 20px; margin: 0; flex: none; accent-color: var(--amber); }
-.apercu { display: flex; flex-direction: column; gap: 10px; }
-.apercu > p { margin: 0; font-weight: 800; font-size: 15px; }
 .propose .btn { align-self: center; margin-top: 6px; }
 .piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .statut { margin: 0; min-height: 1.4em; text-align: center; font-weight: 800; }
 .statut.ok { color: var(--amber); }
 .statut.erreur { color: var(--error); }
 .alt { margin: 0; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+/* Erreurs façon Angular : un champ n'est signalé qu'une fois touché (:user-invalid), ou après une tentative d'envoi (.soumis) */
+.erreur-champ { display: none; margin: 0; color: var(--error); font-size: 14px; font-weight: 700; }
+.champ input:user-invalid ~ .erreur-champ,
+.soumis .champ input:invalid ~ .erreur-champ,
+.champ .regles:has(input:user-invalid) ~ .erreur-champ,
+.soumis .champ .regles:has(input:invalid) ~ .erreur-champ { display: block; }
+.champ input[type=text]:user-invalid,
+.soumis .champ input[type=text]:invalid { border-color: var(--error); box-shadow: 4px 4px 0 var(--error); }
+
+/* Aperçu : texte d'exemple en grisé tant que le champ est vide */
+.apercu .fact .vide { opacity: .4; }
+
+/* Mobile : l'aperçu devient une pancarte compacte qui reste en haut de l'écran pendant la saisie */
+@media (max-width: 959px) {
+  .apercu { position: sticky; top: 0; z-index: 2; padding: 10px 6px 14px; margin: 0 -6px; background: var(--bg); }
+  .apercu .card {
+    aspect-ratio: auto; overflow: visible; border-radius: 0;
+    background: #FFF8E7; border: 3px solid var(--dark); box-shadow: 4px 4px 0 var(--shadow);
+    transform: rotate(-1.5deg);
+  }
+  .apercu .card img, .apercu .tag { display: none; }
+  .apercu .fact { position: static; width: auto; height: auto; padding: 10px 14px; gap: 6px; transform: none; }
+  .apercu .fact p { font-size: 15px; }
+}
+
+/* Grand écran : formulaire à gauche, carte à droite qui suit le défilement */
+@media (min-width: 960px) {
+  .propose-layout { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  .propose { grid-column: 1; grid-row: 1; }
+  .apercu { grid-column: 2; grid-row: 1; position: sticky; top: 24px; }
+}

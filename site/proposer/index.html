@@ -4,77 +4,78 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Proposer un AI Fact – AI! FACTS</title>
-<meta name="description" content="Proposez votre AI Fact : une accroche, une chute. Les meilleurs sont publiés le vendredi sur LinkedIn et sur aifacts.fr, avec le nom de leur auteur.">
-<meta property="og:title" content="Proposez votre AI Fact">
+<meta name="description" content="Propose ton AI Fact : une accroche, une chute. Les meilleurs sont publiés le vendredi sur LinkedIn et sur aifacts.fr, avec le nom de leur auteur.">
+<meta property="og:title" content="Propose ton AI Fact">
 <meta property="og:description" content="Une accroche, une chute. Les meilleurs AI Facts sont publiés le vendredi, avec le nom de leur auteur.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:image" content="https://aifacts.fr/assets/proposer.jpg">
+<meta property="og:image" content="https://aifacts.fr/assets/proposer.jpg?v=2">
 <meta property="og:url" content="https://aifacts.fr/proposer/">
 <link rel="canonical" href="https://aifacts.fr/proposer/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
 <link rel="icon" type="image/png" href="/assets/favicon-32.png?v=2" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
-<link rel="stylesheet" href="/assets/style.css?v=3">
+<link rel="stylesheet" href="/assets/style.css?v=4">
 <script src="/assets/matomo.js"></script>
 </head>
 <body>
-<main>
+<main class="large">
   <a class="retour" href="/">← Retour à l'accueil</a>
-  <img class="banner" src="/assets/proposer.jpg" width="1280" height="640" alt="Le robot AI! FACTS pointe du doigt : « Proposez votre AI Fact ».">
+  <img class="banner" src="/assets/proposer.jpg?v=2" width="1280" height="640" alt="Le robot AI! FACTS pointe du doigt : « Propose ton AI Fact ».">
   <h1 class="visually-hidden">Proposer un AI Fact</h1>
 
-  <form class="propose" id="propose" action="/api/propositions.php" method="post" novalidate>
-    <p class="consigne">Une accroche qui reprend le discours « l'IA sait tout faire », une chute qui le pousse jusqu'à l'absurde.</p>
-
-    <div class="champ">
-      <label for="setup">Accroche</label>
-      <input type="text" name="setup" id="setup" maxlength="160" required aria-describedby="setup-erreur" placeholder="Claude a remplacé une équipe de 10 développeurs.">
-      <p class="erreur-champ" id="setup-erreur"></p>
-    </div>
-    <div class="champ">
-      <label for="punchline">Chute</label>
-      <input type="text" name="punchline" id="punchline" maxlength="160" required aria-describedby="punchline-erreur" placeholder="Il en a fallu 12 pour relire son code.">
-      <p class="erreur-champ" id="punchline-erreur"></p>
-    </div>
-
-    <div class="apercu" id="apercu" hidden>
-      <p>Aperçu</p>
+  <div class="propose-layout">
+    <!-- Aperçu : carte collante à droite sur grand écran, pancarte collante en haut sur mobile -->
+    <div class="apercu" aria-hidden="true">
       <div class="card">
         <img src="/assets/aifacts-robot.jpg" alt="">
         <div class="fact">
-          <p class="a" id="a"></p>
-          <p class="b" id="b"></p>
+          <p class="a vide" id="a"></p>
+          <p class="b vide" id="b"></p>
         </div>
         <p class="tag">Ton fact</p>
       </div>
     </div>
 
-    <div class="champ">
-      <label for="author">Ton nom ou pseudo</label>
-      <span class="aide" id="author-aide">Facultatif, pour te créditer si ton fact est publié.</span>
-      <input type="text" name="author" id="author" maxlength="60" autocomplete="nickname" aria-describedby="author-aide">
-    </div>
+    <form class="propose" id="propose" action="/api/propositions.php" method="post" novalidate>
+      <p class="consigne">Une accroche qui reprend le discours « l'IA sait tout faire », une chute qui le pousse jusqu'à l'absurde.</p>
 
-    <div class="piege" aria-hidden="true">
-      <label>Site web <input type="text" name="site_web" tabindex="-1" autocomplete="off"></label>
-    </div>
-    <input type="hidden" name="t" id="t">
+      <div class="champ">
+        <label for="setup">Accroche</label>
+        <input type="text" name="setup" id="setup" maxlength="160" required pattern=".*\S.*" aria-describedby="setup-erreur" placeholder="Claude a remplacé une équipe de 10 développeurs.">
+        <p class="erreur-champ" id="setup-erreur">Il manque l'accroche.</p>
+      </div>
+      <div class="champ">
+        <label for="punchline">Chute</label>
+        <input type="text" name="punchline" id="punchline" maxlength="160" required pattern=".*\S.*" aria-describedby="punchline-erreur" placeholder="Il en a fallu 12 pour relire son code.">
+        <p class="erreur-champ" id="punchline-erreur">Il manque la chute.</p>
+      </div>
+      <div class="champ">
+        <label for="author">Ton nom ou pseudo</label>
+        <span class="aide" id="author-aide">Facultatif, pour te créditer si ton fact est publié.</span>
+        <input type="text" name="author" id="author" maxlength="60" autocomplete="nickname" aria-describedby="author-aide">
+      </div>
 
-    <div class="champ">
-      <label class="regles">
-        <input type="checkbox" name="regles" id="regles" value="oui" required aria-describedby="regles-erreur">
-        Mon fact est original, ne vise aucune personne réelle et j'accepte sa publication sous licence CC BY 4.0.
-      </label>
-      <p class="erreur-champ" id="regles-erreur"></p>
-    </div>
+      <div class="piege" aria-hidden="true">
+        <label>Site web <input type="text" name="site_web" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <input type="hidden" name="t" id="t">
 
-    <button type="submit" class="btn">Envoyer mon fact</button>
-    <p class="statut" id="statut" role="status"></p>
-    <p class="alt">Les meilleurs sont publiés le vendredi, avec le nom de leur auteur.<br>
-      Tu préfères GitHub ? <a href="https://github.com/manooweb/aifacts/issues/new?template=nouveau-fact.yml">Ouvre une issue</a>.</p>
-  </form>
+      <div class="champ">
+        <label class="regles">
+          <input type="checkbox" name="regles" id="regles" value="oui" required aria-describedby="regles-erreur">
+          Mon fact est original, ne vise aucune personne réelle et j'accepte sa publication sous licence CC BY 4.0.
+        </label>
+        <p class="erreur-champ" id="regles-erreur">Coche cette case pour pouvoir envoyer ton fact.</p>
+      </div>
+
+      <button type="submit" class="btn">Envoyer mon fact</button>
+      <p class="statut" id="statut" role="status"></p>
+      <p class="alt">Les meilleurs sont publiés le vendredi, avec le nom de leur auteur.<br>
+        Tu préfères GitHub ? <a href="https://github.com/manooweb/aifacts/issues/new?template=nouveau-fact.yml">Ouvre une issue</a>.</p>
+    </form>
+  </div>
 </main>
 <footer>aifacts.fr — 100 % véridique* · <span>*ou presque</span> · <a href="https://github.com/manooweb/aifacts">Code source sur GitHub</a></footer>
 
@@ -82,43 +83,30 @@
   const form = document.getElementById('propose');
   const setup = document.getElementById('setup');
   const punchline = document.getElementById('punchline');
-  const regles = document.getElementById('regles');
   const statut = document.getElementById('statut');
-  const apercu = document.getElementById('apercu');
   const horodater = () => { document.getElementById('t').value = Math.floor(Date.now() / 1000); };
   horodater();
 
-  // Aperçu du fact sur la carte pendant la saisie
+  // Aperçu : le texte saisi, ou l'exemple en grisé tant que le champ est vide
+  const afficher = (champ, cible) => {
+    const texte = champ.value.trim();
+    cible.textContent = texte || champ.placeholder;
+    cible.classList.toggle('vide', !texte);
+  };
   const preview = () => {
-    const a = setup.value.trim(), b = punchline.value.trim();
-    apercu.hidden = !a && !b;
-    document.getElementById('a').textContent = a || setup.placeholder;
-    document.getElementById('b').textContent = b || punchline.placeholder;
+    afficher(setup, document.getElementById('a'));
+    afficher(punchline, document.getElementById('b'));
   };
-
-  // Messages d'erreur affichés sous chaque champ (pas de bulles natives)
-  const messages = {
-    setup: 'Il manque l\'accroche.',
-    punchline: 'Il manque la chute.',
-    regles: 'Coche cette case pour pouvoir envoyer ton fact.',
-  };
-  const verifier = (champ) => {
-    const ok = champ.type === 'checkbox' ? champ.checked : champ.value.trim() !== '';
-    champ.setAttribute('aria-invalid', String(!ok));
-    document.getElementById(champ.id + '-erreur').textContent = ok ? '' : messages[champ.id];
-    return ok;
-  };
-  [setup, punchline].forEach((champ) => champ.addEventListener('input', () => {
-    preview();
-    if (champ.getAttribute('aria-invalid') === 'true') verifier(champ);
-  }));
-  regles.addEventListener('change', () => verifier(regles));
+  preview();
+  setup.addEventListener('input', preview);
+  punchline.addEventListener('input', preview);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const invalides = [setup, punchline, regles].filter((champ) => !verifier(champ));
-    if (invalides.length) {
-      invalides[0].focus();
+    // Les erreurs s'affichent en CSS : après la saisie (:user-invalid), ou pour tous les champs après une tentative d'envoi
+    form.classList.add('soumis');
+    if (!form.checkValidity()) {
+      form.querySelector(':invalid').focus();
       return;
     }
     const button = form.querySelector('button');
@@ -133,6 +121,7 @@
       statut.textContent = 'Merci ! Ton fact est en lice pour un prochain vendredi.';
       window._paq && _paq.push(['trackEvent', 'Fact', 'Proposition']);
       form.reset();
+      form.classList.remove('soumis');
       horodater();
       preview();
     } catch (err) {
