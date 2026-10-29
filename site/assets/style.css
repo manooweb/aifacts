@@ -113,17 +113,18 @@ main.large { max-width: 1100px; }
 /* Aperçu : texte d'exemple en grisé tant que le champ est vide */
 .apercu .fact .vide { opacity: .4; }
 
-/* Mobile : l'aperçu devient une pancarte compacte qui reste en haut de l'écran pendant la saisie */
+/* Mobile : pendant la saisie, l'aperçu devient une pancarte compacte qui reste en haut de l'écran.
+   Après l'envoi (.envoye), la carte complète revient. */
 @media (max-width: 959px) {
-  .apercu { position: sticky; top: 0; z-index: 2; padding: 10px 6px 14px; margin: 0 -6px; background: var(--bg); }
-  .apercu .card {
+  .propose-layout:not(.envoye) .apercu { position: sticky; top: 0; z-index: 2; padding: 10px 6px 14px; margin: 0 -6px; background: var(--bg); }
+  .propose-layout:not(.envoye) .apercu .card {
     aspect-ratio: auto; overflow: visible; border-radius: 0;
     background: #FFF8E7; border: 3px solid var(--dark); box-shadow: 4px 4px 0 var(--shadow);
     transform: rotate(-1.5deg);
   }
-  .apercu .card img, .apercu .tag { display: none; }
-  .apercu .fact { position: static; width: auto; height: auto; padding: 10px 14px; gap: 6px; transform: none; }
-  .apercu .fact p { font-size: 15px; }
+  .propose-layout:not(.envoye) .apercu .card img, .propose-layout:not(.envoye) .apercu .tag { display: none; }
+  .propose-layout:not(.envoye) .apercu .fact { position: static; width: auto; height: auto; padding: 10px 14px; gap: 6px; transform: none; }
+  .propose-layout:not(.envoye) .apercu .fact p { font-size: 15px; }
 }
 
 /* Grand écran : carte à gauche qui suit le défilement, formulaire à droite */

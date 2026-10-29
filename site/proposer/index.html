@@ -17,7 +17,7 @@
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
 <link rel="icon" type="image/png" href="/assets/favicon-32.png?v=2" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
-<link rel="stylesheet" href="/assets/style.css?v=5">
+<link rel="stylesheet" href="/assets/style.css?v=6">
 <script src="/assets/matomo.js">
   document.getElementById('encore').addEventListener('click', () => {
     form.reset();
@@ -27,6 +27,7 @@
     preview();
     merci.hidden = true;
     form.hidden = false;
+    layout.classList.remove('envoye');
     setup.focus();
   });
 </script>
@@ -106,6 +107,7 @@
   const punchline = document.getElementById('punchline');
   const statut = document.getElementById('statut');
   const merci = document.getElementById('merci');
+  const layout = document.querySelector('.propose-layout');
   const horodater = () => { document.getElementById('t').value = Math.floor(Date.now() / 1000); };
   horodater();
 
@@ -124,15 +126,9 @@
   punchline.addEventListener('input', preview);
 
   // Erreurs façon Angular, affichées en CSS : champ quitté (.touche, comme « touched ») ou tentative d'envoi (.soumis)
-  // Le champ focalisé automatiquement à l'arrivée n'est pas « touché » tant que l'utilisateur ne l'a pas choisi lui-même
-  form.addEventListener('focusout', (e) => {
-    if (e.target.dataset.auto) return delete e.target.dataset.auto;
-    e.target.classList.add('touche');
-  });
-  setup.addEventListener('input', () => delete setup.dataset.auto);
+  form.addEventListener('focusout', (e) => e.target.classList.add('touche'));
 
   // Focus sur l'accroche à l'arrivée
-  setup.dataset.auto = '1';
   setup.focus();
 
   form.addEventListener('submit', async (e) => {
@@ -155,7 +151,9 @@
       statut.textContent = '';
       form.hidden = true;
       merci.hidden = false;
-      merci.focus();
+      layout.classList.add('envoye');
+      merci.focus({ preventScroll: true });
+      document.querySelector('.apercu').scrollIntoView({ behavior: 'smooth' });
     } catch (err) {
       statut.className = 'statut erreur';
       statut.textContent = err.message || 'Oups, l\'envoi a échoué. Réessaie dans un instant.';
@@ -172,6 +170,7 @@
     preview();
     merci.hidden = true;
     form.hidden = false;
+    layout.classList.remove('envoye');
     setup.focus();
   });
 </script>
