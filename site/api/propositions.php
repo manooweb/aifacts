@@ -20,7 +20,12 @@ $dossier = env('DATA_DIR', dirname(__DIR__, 2) . '/data');
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     repondre(405, ['erreur' => 'Méthode non autorisée.']);
 }
-if (($_SERVER['HTTP_ORIGIN'] ?? '') !== env('APP_URL')) {
+// En local, on accepte aussi l'adresse par laquelle on accède au serveur (test depuis un smartphone sur le réseau)
+$origines = [env('APP_URL')];
+if (env('APP_ENV') === 'local') {
+    $origines[] = 'http://' . ($_SERVER['HTTP_HOST'] ?? '');
+}
+if (!in_array($_SERVER['HTTP_ORIGIN'] ?? '', $origines, true)) {
     repondre(403, ['erreur' => 'Origine non autorisée.']);
 }
 

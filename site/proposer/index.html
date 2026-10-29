@@ -123,7 +123,18 @@
   punchline.addEventListener('input', preview);
 
   // Erreurs façon Angular, affichées en CSS : champ quitté (.touche, comme « touched ») ou tentative d'envoi (.soumis)
-  form.addEventListener('focusout', (e) => e.target.classList.add('touche'));
+  // Le champ focalisé automatiquement à l'arrivée n'est pas « touché » tant que l'utilisateur ne l'a pas choisi lui-même
+  form.addEventListener('focusout', (e) => {
+    if (e.target.dataset.auto) return delete e.target.dataset.auto;
+    e.target.classList.add('touche');
+  });
+  setup.addEventListener('input', () => delete setup.dataset.auto);
+
+  // Focus sur l'accroche à l'arrivée, sauf sur écran tactile où le clavier masquerait la page
+  if (matchMedia('(pointer: fine)').matches) {
+    setup.dataset.auto = '1';
+    setup.focus();
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
