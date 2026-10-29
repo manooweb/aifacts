@@ -92,14 +92,23 @@ main.large { max-width: 1100px; }
 .statut.erreur { color: var(--error); }
 .alt { margin: 0; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.5; }
 
-/* Erreurs façon Angular : un champ n'est signalé qu'une fois touché (:user-invalid), ou après une tentative d'envoi (.soumis) */
+/* Erreurs façon Angular : un champ n'est signalé qu'une fois quitté (.touche), ou après une tentative d'envoi (.soumis) */
 .erreur-champ { display: none; margin: 0; color: var(--error); font-size: 14px; font-weight: 700; }
-.champ input:user-invalid ~ .erreur-champ,
+.champ input.touche:invalid ~ .erreur-champ,
 .soumis .champ input:invalid ~ .erreur-champ,
-.champ .regles:has(input:user-invalid) ~ .erreur-champ,
+.champ .regles:has(input.touche:invalid) ~ .erreur-champ,
 .soumis .champ .regles:has(input:invalid) ~ .erreur-champ { display: block; }
-.champ input[type=text]:user-invalid,
+.champ input[type=text].touche:invalid,
 .soumis .champ input[type=text]:invalid { border-color: var(--error); box-shadow: 4px 4px 0 var(--error); }
+
+/* Remerciement, à la place du formulaire après l'envoi */
+.merci { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; padding: 8px 0; }
+.merci:focus { outline: none; }
+.merci h2 { margin: 0; font-size: 32px; font-weight: 900; font-style: italic; text-transform: uppercase; color: var(--amber); text-shadow: 3px 3px 0 var(--shadow); transform: rotate(-2deg); }
+.merci p { margin: 0; color: var(--muted); line-height: 1.5; }
+.merci .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 8px; }
+.btn.secondaire { background: transparent; color: var(--amber); border-color: var(--amber); box-shadow: 5px 5px 0 var(--dark); }
+.btn.secondaire:hover { color: var(--amber); box-shadow: 6px 6px 0 var(--dark); }
 
 /* Aperçu : texte d'exemple en grisé tant que le champ est vide */
 .apercu .fact .vide { opacity: .4; }
@@ -117,9 +126,9 @@ main.large { max-width: 1100px; }
   .apercu .fact p { font-size: 15px; }
 }
 
-/* Grand écran : formulaire à gauche, carte à droite qui suit le défilement */
+/* Grand écran : carte à gauche qui suit le défilement, formulaire à droite */
 @media (min-width: 960px) {
   .propose-layout { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
-  .propose { grid-column: 1; grid-row: 1; }
-  .apercu { grid-column: 2; grid-row: 1; position: sticky; top: 24px; }
+  .propose, .merci { grid-column: 2; grid-row: 1; }
+  .apercu { grid-column: 1; grid-row: 1; position: sticky; top: 24px; }
 }
