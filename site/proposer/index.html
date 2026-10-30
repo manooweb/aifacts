@@ -18,19 +18,7 @@
 <link rel="icon" type="image/png" href="/assets/favicon-32.png?v=2" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
 <link rel="stylesheet" href="/assets/style.css?v=6">
-<script src="/assets/matomo.js">
-  document.getElementById('encore').addEventListener('click', () => {
-    form.reset();
-    form.classList.remove('soumis');
-    form.querySelectorAll('.touche').forEach((champ) => champ.classList.remove('touche'));
-    horodater();
-    preview();
-    merci.hidden = true;
-    form.hidden = false;
-    layout.classList.remove('envoye');
-    setup.focus();
-  });
-</script>
+<script src="/assets/matomo.js"></script>
 </head>
 <body>
 <main class="large">
