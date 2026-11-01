@@ -7,3 +7,8 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\. [NC,OR]
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://aifacts.fr%{REQUEST_URI} [L,R=301]
+
+# Liens courts : tout chemin qui n'est ni un fichier ni un dossier passe par go.php (redirection ou 404)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ go.php [L]
